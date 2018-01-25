@@ -51,7 +51,7 @@ class Valuation::BudgetInvestmentsController < Valuation::BaseController
 
     def load_comments
       @commentable = @investment
-      @comment_tree = CommentTree.new(@commentable, params[:page], @current_order)
+      @comment_tree = CommentTree.new(@commentable, params[:page], @current_order, valuations: true)
       set_comment_flags(@comment_tree.comments)
     end
 
