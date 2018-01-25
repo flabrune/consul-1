@@ -27,7 +27,8 @@
           <% else %>
             <%= render 'comments/form', { commentable: commentable,
                                           parent_id: nil,
-                                          toggeable: false } %>
+                                          toggeable: false,
+                                          valuation: local_assigns.fetch(:valuation, false) } %>
           <% end %>
         <% else %>
           <br>
