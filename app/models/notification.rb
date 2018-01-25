@@ -19,6 +19,14 @@ class Notification < ActiveRecord::Base
     destroy
   end
 
+  def notifiable
+    if self.notifiable_type == 'Comment'
+      Comment.unscoped.find(self.notifiable_id)
+    else
+      notifiable
+    end
+  end
+
   def self.add(user_id, notifiable)
     notification = Notification.find_by(user_id: user_id, notifiable: notifiable)
 

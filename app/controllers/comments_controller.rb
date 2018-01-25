@@ -2,6 +2,7 @@ class CommentsController < ApplicationController
   include CustomUrlsHelper
 
   before_action :authenticate_user!, only: :create
+  before_action :load_comment, only: :vote
   before_action :load_commentable, only: :create
   before_action :verify_resident_for_commentable!, only: :create
   before_action :verify_comments_open!, only: [:create, :vote]
@@ -60,6 +61,10 @@ class CommentsController < ApplicationController
       elsif moderator_comment?
         @comment.moderator_id = current_user.moderator.id
       end
+    end
+
+    def load_comment
+      @comment = Comment.unscoped.find(params[:id])
     end
 
     def load_commentable
