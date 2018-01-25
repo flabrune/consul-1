@@ -26,6 +26,7 @@ class Comment < ActiveRecord::Base
 
   before_save :calculate_confidence_score
 
+  default_scope { where(valuation: false) }
   scope :for_render, -> { with_hidden.includes(user: :organization) }
   scope :with_visible_author, -> { joins(:user).where("users.hidden_at IS NULL") }
   scope :not_as_admin_or_moderator, -> do
@@ -49,6 +50,8 @@ class Comment < ActiveRecord::Base
 
   scope :sort_by_oldest, -> { order(created_at: :asc) }
   scope :sort_descendants_by_oldest, -> { order(created_at: :asc) }
+
+  scope :valuations, -> { where(valuation: true) }
 
   after_create :call_after_commented
 
