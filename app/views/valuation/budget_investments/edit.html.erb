@@ -89,6 +89,15 @@
     </div>
   </div>
 
+  <div class="tabs-panel is-active" id="tab-comments">
+    <% unless @comment_tree.nil? %>
+      <%= render partial: '/comments/comment_tree', locals: { comment_tree: @comment_tree,
+                                                              comment_flags: @comment_flags,
+                                                              concealed: @concealed,
+                                                              display_comments_count: false } %>
+    <% end %>
+  </div>
+
   <div class="row">
     <div class="actions small-12 medium-4 column">
       <%= f.submit(class: "button expanded large", value: t("valuation.budget_investments.edit.save")) %>
